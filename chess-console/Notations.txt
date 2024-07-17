@@ -1,0 +1,6 @@
+﻿This project was made during Nélio Alves C# course and will use multitier architecture with three tiers:
+1 - Application Tier
+2 - Chess Game Tier
+3 - Board Tier
+
+
