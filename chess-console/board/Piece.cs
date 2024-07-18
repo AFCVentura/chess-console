@@ -19,7 +19,11 @@ namespace board
             Color = color;
             Board = board;
             MovementCount = 0;
+        }
 
+        public void IncrementMovementCount()
+        {
+            MovementCount++;
         }
     }
 }

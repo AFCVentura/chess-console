@@ -12,7 +12,7 @@ namespace chess
 
         public override string ToString()
         {
-            return "\u2655";
+            return "\u2656";
         }
     }
 }

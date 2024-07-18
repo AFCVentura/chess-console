@@ -13,14 +13,21 @@ namespace chess_console
             Console.ForegroundColor = ConsoleColor.White;
             try
             {
-                Board b = new Board(8, 8);
-                // test
-                b.PutPiece(new Tower(Color.Black, b), new Position(0, 0));
-                b.PutPiece(new Tower(Color.Black, b), new Position(1, 0));
-                b.PutPiece(new King(Color.White, b), new Position(0, 2));
-                b.PutPiece(new King(Color.White, b), new Position(1, 2));
-                b.PutPiece(new Pawn(Color.Black, b), new Position(0, 4));
-                Screen.PrintBoard(b);
+                ChessMatch match = new ChessMatch();
+                while (!match.IsFinished)
+                {
+                    Console.Clear();
+                    Screen.PrintBoard(match.Board);
+
+                    Console.WriteLine();
+
+                    Console.Write("Origin: ");
+                    Position origin = Screen.ReadChessPosition().ToPosition();
+                    Console.Write("Target: ");
+                    Position target = Screen.ReadChessPosition().ToPosition();
+
+                    match.Move(origin, target);
+                }
             }
             catch (Exception e)
             {
