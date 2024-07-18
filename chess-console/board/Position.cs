@@ -17,6 +17,12 @@ namespace board
             Column = column;
         }
 
+        public void DefiningValues(int row, int column)
+        {
+            Row = row;
+            Column = column;
+        }
+
         public override string ToString()
         {
             return $"{Row}, {Column}";

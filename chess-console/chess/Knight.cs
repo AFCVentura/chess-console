@@ -9,6 +9,11 @@ namespace chess
         {
         }
 
+        public override bool[,] PossibleMovements()
+        {
+            throw new NotImplementedException();
+        }
+
         public override string? ToString()
         {
             return "\u2658";

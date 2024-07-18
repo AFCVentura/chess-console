@@ -30,6 +30,11 @@ namespace chess
 
         private void PutPieces()
         {
+            Board.PutPiece(new Tower(Color.White, Board), new ChessPosition('a', 1).ToPosition());
+            Board.PutPiece(new Queen(Color.Black, Board), new ChessPosition('a', 5).ToPosition());
+            Board.PutPiece(new Knight(Color.White, Board), new ChessPosition('e', 1).ToPosition());
+            Board.PutPiece(new King(Color.White, Board), new ChessPosition('d', 4).ToPosition());
+            /*
             // White strong pieces
             Board.PutPiece(new Tower(Color.White, Board), new ChessPosition('a', 1).ToPosition());
             Board.PutPiece(new Knight(Color.White, Board), new ChessPosition('b', 1).ToPosition());
@@ -69,6 +74,7 @@ namespace chess
             Board.PutPiece(new Pawn(Color.Black, Board), new ChessPosition('f', 7).ToPosition());
             Board.PutPiece(new Pawn(Color.Black, Board), new ChessPosition('g', 7).ToPosition());
             Board.PutPiece(new Pawn(Color.Black, Board), new ChessPosition('h', 7).ToPosition());
+            */
         }
     }
 }
