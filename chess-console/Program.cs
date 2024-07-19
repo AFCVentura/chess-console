@@ -1,4 +1,5 @@
 ﻿using board;
+using board.exception;
 using chess;
 using chess_console.chess;
 
@@ -16,25 +17,38 @@ namespace chess_console
                 ChessMatch match = new ChessMatch();
                 while (!match.IsFinished)
                 {
-                    Console.Clear();
-                    Screen.PrintBoard(match.Board);
+                    try
+                    {
+                        Console.Clear();
+                        Screen.PrintBoard(match.Board);
+                        Console.WriteLine();
+                        Console.WriteLine($"Turn: {match.Turn}");
+                        Console.WriteLine($"Waiting for {match.CurrentPlayer} Move");
+                        Console.WriteLine();
 
-                    Console.WriteLine();
-
-                    Console.Write("Origin: ");
-                    Position origin = Screen.ReadChessPosition().ToPosition();
-
-                    bool[,] possiblePositions = match.Board.Piece(origin).PossibleMovements();
-
-                    Console.Clear();
-
-                    Screen.PrintBoard(match.Board, possiblePositions);
+                        Console.Write("Origin: ");
+                        Position origin = Screen.ReadChessPosition().ToPosition();
+                        match.ValidateOriginPosition(origin);
 
 
-                    Console.Write("Target: ");
-                    Position target = Screen.ReadChessPosition().ToPosition();
+                        bool[,] possiblePositions = match.Board.Piece(origin).PossibleMovements();
 
-                    match.Move(origin, target);
+                        Console.Clear();
+                        Screen.PrintBoard(match.Board, possiblePositions);
+
+
+                        Console.Write("Target: ");
+                        Position target = Screen.ReadChessPosition().ToPosition();
+                        match.ValidateTargetPosition(origin, target);
+
+                        match.PerformMove(origin, target);
+                    }
+                    catch (BoardException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.ReadKey();
+                    }
+                    
                 }
             }
             catch (Exception e)
