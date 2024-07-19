@@ -100,7 +100,7 @@ namespace chess
 
         public void ValidateTargetPosition(Position origin, Position target)
         {
-            if (!Board.Piece(origin).CanMoveTo(target))
+            if (!Board.Piece(origin).PossibleMove(target))
             {
                 throw new BoardException("Invalid target square");
             }
@@ -227,27 +227,6 @@ namespace chess
 
         private void PutPieces()
         {
-            PutNewPiece('a', 8, new King(Color.Black, Board));
-            PutNewPiece('b', 8, new Tower(Color.Black, Board));
-            PutNewPiece('h', 7, new Tower(Color.White, Board));
-            PutNewPiece('e', 1, new King(Color.White, Board));
-            PutNewPiece('c', 3, new Tower(Color.White, Board));
-
-           /* PutNewPiece('d', 1, new King(Color.White, Board));
-            PutNewPiece('c', 1, new Tower(Color.White, Board));
-            PutNewPiece('c', 2, new Tower(Color.White, Board));
-            PutNewPiece('d', 2, new Tower(Color.White, Board));
-            PutNewPiece('e', 2, new Tower(Color.White, Board));
-            PutNewPiece('e', 1, new Tower(Color.White, Board));
-
-            PutNewPiece('d', 8, new King(Color.Black, Board));
-            PutNewPiece('c', 8, new Tower(Color.Black, Board));
-            PutNewPiece('c', 7, new Tower(Color.Black, Board));
-            PutNewPiece('d', 7, new Tower(Color.Black, Board));
-            PutNewPiece('e', 7, new Tower(Color.Black, Board));
-            PutNewPiece('e', 8, new Tower(Color.Black, Board));
-*/
-            /*
             // White strong pieces
             PutNewPiece('a', 1, new Tower(Color.White, Board));
             PutNewPiece('b', 1, new Knight(Color.White, Board));
@@ -279,14 +258,15 @@ namespace chess
             PutNewPiece('h', 8, new Tower(Color.Black, Board));
 
             // Black pawns
-            PutNewPiece('a', 7, new Pawn(Color.White, Board));
-            PutNewPiece('b', 7, new Pawn(Color.White, Board));
-            PutNewPiece('c', 7, new Pawn(Color.White, Board));
-            PutNewPiece('d', 7, new Pawn(Color.White, Board));
-            PutNewPiece('f', 7, new Pawn(Color.White, Board));
-            PutNewPiece('g', 7, new Pawn(Color.White, Board));
-            PutNewPiece('h', 7, new Pawn(Color.White, Board));
-            */
+            PutNewPiece('a', 7, new Pawn(Color.Black, Board));
+            PutNewPiece('b', 7, new Pawn(Color.Black, Board));
+            PutNewPiece('c', 7, new Pawn(Color.Black, Board));
+            PutNewPiece('d', 7, new Pawn(Color.Black, Board));
+            PutNewPiece('e', 7, new Pawn(Color.Black, Board));
+            PutNewPiece('f', 7, new Pawn(Color.Black, Board));
+            PutNewPiece('g', 7, new Pawn(Color.Black, Board));
+            PutNewPiece('h', 7, new Pawn(Color.Black, Board));
+
         }
     }
 }

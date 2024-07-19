@@ -30,7 +30,7 @@ namespace chess
                 {
                     break;
                 }
-                position.Row--;
+                position.DefiningValues(position.Row - 1, position.Column);
             }
 
             // right
@@ -42,11 +42,11 @@ namespace chess
                 {
                     break;
                 }
-                position.Column++;
+                position.DefiningValues(position.Row, position.Column + 1);
             }
 
             // back
-            position.DefiningValues(Position.Row + 1, Position.Column);
+            position.DefiningValues(position.Row + 1, Position.Column);
             while (Board.ValidPosition(position) && CanMove(position))
             {
                 mat[position.Row, position.Column] = true;
@@ -54,7 +54,7 @@ namespace chess
                 {
                     break;
                 }
-                position.Row++;
+                position.DefiningValues(position.Row + 1, position.Column);
             }
   
             // left
@@ -66,7 +66,7 @@ namespace chess
                 {
                     break;
                 }
-                position.Column--;
+                position.DefiningValues(position.Row, position.Column - 1);
             }
 
             return mat;
