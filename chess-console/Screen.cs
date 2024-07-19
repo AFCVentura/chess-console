@@ -1,4 +1,5 @@
 ﻿using board;
+using chess;
 using chess_console.chess;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,37 @@ namespace chess_console
 {
     internal class Screen
     {
+        public static void PrintMatch(ChessMatch match)
+        {
+            Console.Clear();
+            Console.WriteLine();
+            PrintBoard(match.Board);
+            PrintCapturedPieces(match);
+            Console.WriteLine();
+            Console.WriteLine($"Turn: {match.Turn}");
+            Console.WriteLine($"Waiting for {match.CurrentPlayer} Move");
+            Console.WriteLine();
+        }
+
+        public static void PrintCapturedPieces(ChessMatch match)
+        {
+            Console.WriteLine("Captured Pieces:");
+            Console.Write("White: ");
+            PrintSet(match.CapturedPieces(Color.White));
+            Console.Write("Black: ");
+            PrintSet(match.CapturedPieces(Color.Black));
+        }
+
+        public static void PrintSet(HashSet<Piece> set)
+        {
+            Console.Write("[");
+            foreach (Piece piece in set)
+            {
+                Console.Write(piece + " ");
+            }
+            Console.WriteLine("]");
+        }
+
         public static void PrintBoard(Board board)
         {
             bool whiteSquare = true;

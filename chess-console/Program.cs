@@ -19,12 +19,7 @@ namespace chess_console
                 {
                     try
                     {
-                        Console.Clear();
-                        Screen.PrintBoard(match.Board);
-                        Console.WriteLine();
-                        Console.WriteLine($"Turn: {match.Turn}");
-                        Console.WriteLine($"Waiting for {match.CurrentPlayer} Move");
-                        Console.WriteLine();
+                        Screen.PrintMatch(match);
 
                         Console.Write("Origin: ");
                         Position origin = Screen.ReadChessPosition().ToPosition();
