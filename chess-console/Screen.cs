@@ -19,12 +19,20 @@ namespace chess_console
             PrintCapturedPieces(match);
             Console.WriteLine();
             Console.WriteLine($"Turn: {match.Turn}");
-            Console.WriteLine($"Waiting for {match.CurrentPlayer} Move");
-            if (match.Check)
+            if(!match.IsFinished)
             {
-                Console.WriteLine("Check!");
+                Console.WriteLine($"Waiting for {match.CurrentPlayer} Move");
+                if (match.Check)
+                {
+                    Console.WriteLine("Check!");
+                }
+                Console.WriteLine();
             }
-            Console.WriteLine();
+            else
+            {
+                Console.WriteLine("CHECKMATE!");
+                Console.WriteLine($"Winner: {match.CurrentPlayer}");
+            }
 
         }
 

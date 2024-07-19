@@ -70,9 +70,16 @@ namespace chess
             {
                 Check = false;
             }
-
-            Turn++;
-            ChangePlayer();
+            
+            if(TestCheckMate(WhoIsTheOpponent(CurrentPlayer)))
+            {
+                IsFinished = true;
+            }
+            else
+            {
+                Turn++;
+                ChangePlayer();
+            }
         }
 
         public void ValidateOriginPosition(Position origin)
@@ -180,6 +187,37 @@ namespace chess
             return false;
         }
 
+        public bool TestCheckMate(Color color)
+        {
+            if (!IsInCheck(color))
+            {
+                return false;
+            }
+            foreach (Piece piece in InGamePieces(color))
+            {
+                bool[,] mat = piece.PossibleMovements();
+                for (int i = 0; i < Board.Row; i++)
+                {
+                    for (int j = 0; j < Board.Column; j++)
+                    {
+                        if (mat[i, j])
+                        {
+                            Position origin = piece.Position;
+                            Position target = new Position(i,j);
+                            Piece capturedPiece = Move(origin, target);
+                            bool testCheck = IsInCheck(color);
+                            UndoMove(origin, target, capturedPiece);
+                            if (!testCheck)
+                            {
+                                return false;
+                            }
+                        }      
+                    }
+                }
+            }
+            return true;
+        }
+
 
         public void PutNewPiece(char column, int row, Piece piece)
         {
@@ -189,7 +227,13 @@ namespace chess
 
         private void PutPieces()
         {
-            PutNewPiece('d', 1, new King(Color.White, Board));
+            PutNewPiece('a', 8, new King(Color.Black, Board));
+            PutNewPiece('b', 8, new Tower(Color.Black, Board));
+            PutNewPiece('h', 7, new Tower(Color.White, Board));
+            PutNewPiece('e', 1, new King(Color.White, Board));
+            PutNewPiece('c', 3, new Tower(Color.White, Board));
+
+           /* PutNewPiece('d', 1, new King(Color.White, Board));
             PutNewPiece('c', 1, new Tower(Color.White, Board));
             PutNewPiece('c', 2, new Tower(Color.White, Board));
             PutNewPiece('d', 2, new Tower(Color.White, Board));
@@ -202,7 +246,7 @@ namespace chess
             PutNewPiece('d', 7, new Tower(Color.Black, Board));
             PutNewPiece('e', 7, new Tower(Color.Black, Board));
             PutNewPiece('e', 8, new Tower(Color.Black, Board));
-
+*/
             /*
             // White strong pieces
             PutNewPiece('a', 1, new Tower(Color.White, Board));
