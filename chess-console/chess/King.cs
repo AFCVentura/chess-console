@@ -6,8 +6,10 @@ namespace chess
 {
     internal class King : Piece
     {
-        public King(Color color, Board board) : base(color, board)
+        private ChessMatch _match;
+        public King(Color color, Board board, ChessMatch chessMatch) : base(color, board)
         {
+            _match = chessMatch;
         }
 
         private bool CanMove(Position position)
@@ -16,6 +18,12 @@ namespace chess
             return piece == null || piece.Color != Color;
         }
 
+        private bool TestTowerToCastle(Position position)
+        {
+            Piece piece = Board.Piece(position);
+            return piece != null && piece is Tower && piece.Color == Color && piece.MovementCount == 0;
+        }
+            
         public override bool[,] PossibleMovements()
         {
             bool[,] mat = new bool[Board.Row, Board.Column];
@@ -78,6 +86,37 @@ namespace chess
                 mat[position.Row, position.Column] = true;
             }
 
+            // #SpecialMove Castle
+            if (MovementCount == 0 && !_match.Check) 
+            {
+                // Castle Kingside
+                Position kingTowerPosition = new Position(Position.Row, Position.Column + 3);
+                if (TestTowerToCastle(kingTowerPosition)) 
+                {
+                    Position kingEmptySquare = new Position(Position.Row, Position.Column + 1);
+                    Position towerEmptySquare = new Position(Position.Row, Position.Column + 2);
+                    if (Board.Piece(kingEmptySquare) == null && Board.Piece(towerEmptySquare) == null)
+                    {
+                        mat[Position.Row, Position.Column + 2] = true;
+                    }
+                }
+
+                // Castle Queenside
+                Position queenTowerQueensidePosition = new Position(Position.Row, Position.Column - 4);
+                if (TestTowerToCastle(queenTowerQueensidePosition))
+                {
+                    Position kingEmptySquare = new Position(Position.Row, Position.Column - 1);
+                    Position middleEmptySquare = new Position(Position.Row, Position.Column - 2);
+                    Position towerEmptySquare = new Position(Position.Row, Position.Column - 3);
+                    if (Board.Piece(kingEmptySquare) == null && Board.Piece(middleEmptySquare) == null && Board.Piece(towerEmptySquare) == null)
+                    {
+                        mat[Position.Row, Position.Column - 2] = true;
+                    }
+                }
+            }   
+
+
+                
             return mat;
         }
 
