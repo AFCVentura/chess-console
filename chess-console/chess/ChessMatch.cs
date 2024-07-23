@@ -145,6 +145,19 @@ namespace chess
                 throw new BoardException("This move will put your king in check");
             }
 
+            Piece p = Board.Piece(target);
+
+            // #SpecialMove Promotion
+            if (p is Pawn)
+            {
+                if ((p.Color == Color.White && target.Row == 0) || (p.Color == Color.Black && target.Row == 7))
+                {
+                    p = Board.RemovePiece(target);
+                    _pieces.Remove(p);
+                    Piece promotedPiece = new Queen(p.Color, Board);
+                }
+            }
+
             if (IsInCheck(WhoIsTheOpponent(CurrentPlayer)))
             {
                 Check = true;

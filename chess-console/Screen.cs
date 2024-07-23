@@ -1,4 +1,5 @@
 ﻿using board;
+using board.exception;
 using chess;
 using chess_console.chess;
 using System;
@@ -35,6 +36,7 @@ namespace chess_console
             }
 
         }
+
 
         public static void PrintCapturedPieces(ChessMatch match)
         {
